@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>信息索引 · 南宫28</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: #f5f9fc;
+            color: #1e2a32;
+            line-height: 1.7;
+            padding: 0 1.2rem;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 0 3rem;
+        }
+
+        /* 杂志横幅 */
+        .hero {
+            background: linear-gradient(135deg, #d4efe9 0%, #b3dbd1 50%, #a1cec4 100%);
+            border-radius: 2.5rem 2.5rem 1rem 1rem;
+            padding: 3.5rem 2.5rem;
+            margin-bottom: 2.8rem;
+            box-shadow: 0 8px 20px rgba(18, 88, 76, 0.08);
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 2.8rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            color: #0a3d35;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #2a5c52;
+            border-left: 4px solid #206b5e;
+            padding-left: 1rem;
+            margin-top: 0.3rem;
+            max-width: 550px;
+        }
+
+        .hero .caption {
+            display: inline-block;
+            background: rgba(255,255,255,0.4);
+            backdrop-filter: blur(2px);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: #17473d;
+            margin-top: 1.2rem;
+        }
+
+        /* 网格卡片 */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.8rem;
+            margin: 2.8rem 0;
+        }
+
+        @media (min-width: 680px) {
+            .intro-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            padding: 1.8rem 1.8rem 2.2rem;
+            border-radius: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 40, 35, 0.04);
+            transition: box-shadow 0.2s;
+            border: 1px solid #e2f0eb;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 22px rgba(55, 120, 105, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #13574a;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3::before {
+            content: "▍";
+            color: #2f8b78;
+            font-size: 1.5rem;
+        }
+
+        .card p {
+            font-size: 0.98rem;
+            color: #2b3f3a;
+        }
+
+        .card .meta-tag {
+            margin-top: 1rem;
+            font-size: 0.8rem;
+            color: #5c7a72;
+            background: #eaf3ef;
+            padding: 0.2rem 0.7rem;
+            border-radius: 30px;
+            display: inline-block;
+        }
+
+        /* 背景说明区 加网格 */
+        .background-section {
+            background: #ecf5f1;
+            border-radius: 2rem;
+            padding: 2.2rem 2.2rem 2.8rem;
+            margin: 2.8rem 0;
+        }
+
+        .background-section h2 {
+            font-size: 1.5rem;
+            font-weight: 450;
+            color: #0b4239;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.2rem;
+        }
+
+        .background-section p {
+            margin-bottom: 1rem;
+            max-width: 800px;
+        }
+
+        .background-section .highlight {
+            background: #dbeee7;
+            padding: 0.1rem 0.3rem;
+            border-radius: 6px;
+            color: #09463b;
+        }
+
+        /* 分栏小卡片列 */
+        .feature-mini-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .feature-mini-grid .mini-item {
+            background: white;
+            border-radius: 60px;
+            padding: 0.5rem 1.2rem 0.5rem 1rem;
+            font-size: 0.9rem;
+            border: 1px solid #c8e0d8;
+            color: #14584a;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .feature-mini-grid .mini-item::before {
+            content: "◈";
+            color: #479582;
+            font-size: 0.8rem;
+            margin-right: 0.2rem;
+        }
+
+        /* 页尾 / 访问提示 */
+        .outro {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #d7e7e0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 1.2rem;
+        }
+
+        .outro .note {
+            font-size: 0.95rem;
+            color: #2e554b;
+        }
+
+        .outro .note a {
+            color: #1a7b66;
+            text-decoration: none;
+            font-weight: 450;
+            border-bottom: 1px dotted #70b3a2;
+            transition: border 0.2s;
+        }
+
+        .outro .note a:hover {
+            border-bottom: 1px solid #125b4d;
+        }
+
+        .faq-mini {
+            margin: 2.5rem 0 1rem;
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.8rem 2rem;
+            border: 1px solid #d5e9e1;
+        }
+
+        .faq-mini summary {
+            font-weight: 500;
+            color: #1b5b4c;
+            cursor: pointer;
+            padding: 0.3rem 0;
+        }
+
+        .faq-mini details p {
+            margin-top: 0.5rem;
+            color: #2f4f46;
+            font-size: 0.95rem;
+            padding-left: 1rem;
+            border-left: 2px solid #b5d6cb;
+        }
+
+        .footer-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            font-size: 0.85rem;
+            color: #53786e;
+            margin-top: 2rem;
+        }
+
+        .dot {
+            opacity: 0.6;
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 杂志横幅 hero -->
+        <div class="hero">
+            <h1>南宫28 · 资料索引</h1>
+            <div class="sub">一份围绕平台信息整理的专题笔记 · 从结构到场景</div>
+            <span class="caption">📋 基于开放资料 · 2025</span>
+        </div>
+
+        <!-- 三段自然介绍：网格结构 -->
+        <div class="intro-grid">
+            <div class="card">
+                <h3>信息整理视角</h3>
+                <p>当我们谈论一个在线服务时，清晰的索引比断言更有价值。<a href="https://m-m-nangong28.com" style="color:#1a7b66; text-decoration: underline; text-underline-offset: 4px; text-decoration-color: #b1d5ca;">南宫28</a> 作为信息聚合点，其内容结构、分类方式和导航逻辑值得被客观梳理。这里没有过度包装，只有基于界面的观察。</p>
+                <span class="meta-tag">📂 分类导览 · 框架</span>
+            </div>
+            <div class="card">
+                <h3>模块与路径</h3>
+                <p>从首页入口到子板块，不同功能模块承担了信息承载的角色。经过多轮页面浏览，我们能识别出内容分区、交互组件以及资源链接的组织形式。这种布局对于新用户来说，提供了一个低门槛的切入点。</p>
+                <span class="meta-tag">🧩 布局 · 页面结构</span>
+            </div>
+            <div class="card">
+                <h3>场景化阅读</h3>
+                <p>无论是通过移动设备还是桌面浏览器，响应式适配让内容保持一致。资料的呈现没有过度堆砌，而是按照常见需求排列。用户可以根据自己的节奏浏览，而不被频繁的弹窗干扰。</p>
+                <span class="meta-tag">📱 多端适配</span>
+            </div>
+            <div class="card">
+                <h3>语言与调性</h3>
+                <p>整个站点的用语偏向中性说明，没有出现夸张的修辞。这种克制的语气有助于把注意力集中在信息本身，也降低了理解成本。索引类页面应当保持这种干净、友好的基调。</p>
+                <span class="meta-tag">✏️ 文案风格</span>
+            </div>
+        </div>
+
+        <!-- 背景说明 -->
+        <div class="background-section">
+            <h2>关于这份索引</h2>
+            <p>这份专题页从资料整理的角度出发，把 <span class="highlight">南宫28</span> 视为一个信息节点，而非推广对象。我们整理了它的内容分布、导航逻辑、以及页面之间的关联方式。没有复杂的数据爬取，只有基于公开访问的界面分析。</p>
+            <p>在信息过载的时代，一份结构化的参考笔记能帮助感兴趣的人快速建立认知坐标。本页的所有描述都基于实际页面观察，不包含未经验证的功能宣称。</p>
+
+            <div class="feature-mini-grid">
+                <span class="mini-item">首页布局</span>
+                <span class="mini-item">分类入口</span>
+                <span class="mini-item">内容板块</span>
+                <span class="mini-item">链接体系</span>
+                <span class="mini-item">移动视图</span>
+                <span class="mini-item">导航路径</span>
+            </div>
+        </div>
+
+        <!-- FAQ摘要 -->
+        <div class="faq-mini">
+            <details>
+                <summary>❓ 常见疑问摘要 —— 关于索引</summary>
+                <p>这本索引页不提供任何形式的担保或推荐，仅作信息陈列。所有关于 <a href="https://m-m-nangong28.com" style="color:#1a7b66; text-decoration: underline; text-underline-offset: 3px;">南宫28</a> 的描述均来自公开可见的界面元素，不包含内部数据或后台逻辑。如需进一步了解，建议直接浏览网站本身。</p>
+            </details>
+            <details style="margin-top: 0.8rem;">
+                <summary>📌 索引页会更新吗？</summary>
+                <p>页面内容会跟随网站结构变化做定期复核。如果发现模块调整或新增分类，本索引会同步修订对应的卡片描述。保持信息的准确性是最基本的原则。</p>
+            </details>
+        </div>
+
+        <!-- 页尾访问提示（自然嵌入链接） -->
+        <div class="outro">
+            <div class="note">
+                若你想浏览原始信息源，可直接查阅 <a href="https://m-m-nangong28.com">南宫28</a>。本索引仅作为辅助性的结构笔记。
+            </div>
+            <div class="note" style="font-size:0.85rem;">
+                ▸ 整理周期：2025 · 早春
+            </div>
+        </div>
+
+        <div class="footer-meta">
+            <span>📄 索引说明</span>
+            <span class="dot">·</span>
+            <span>内容基于公开页面</span>
+            <span class="dot">·</span>
+            <span>无商业合作</span>
+            <span class="dot">·</span>
+            <span>移动优先</span>
+        </div>
+    </div>
+</body>
+</html>
