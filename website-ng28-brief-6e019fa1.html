@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>了解 ng28 · 用途速览</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+      background: #f2f5f9;
+      color: #1f2a3f;
+      line-height: 1.7;
+    }
+
+    /* 深色头图 */
+    .hero {
+      background: linear-gradient(137deg, #0d1826 0%, #162b3a 100%);
+      color: #e4ecf3;
+      padding: 4.5rem 2rem 3.8rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 550;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero .sub {
+      max-width: 640px;
+      margin: 0 auto;
+      font-size: 1.15rem;
+      color: #b7ccdf;
+      font-weight: 350;
+    }
+
+    .hero .sub strong {
+      color: #d6e6ff;
+      font-weight: 500;
+    }
+
+    .hero::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: #6f9ed8;
+      margin: 2rem auto 0;
+      border-radius: 4px;
+    }
+
+    /* 正文容器：浅色区 */
+    .content {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 3rem 2rem 4rem;
+      background: #ffffff;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 550;
+      color: #0f1e2f;
+      margin: 2.4rem 0 1rem;
+      border-left: 5px solid #6f9ed8;
+      padding-left: 1rem;
+    }
+
+    .section-title:first-of-type {
+      margin-top: 0;
+    }
+
+    p {
+      margin-bottom: 1.4rem;
+    }
+
+    p.lead {
+      font-size: 1.12rem;
+      background: #f6f9ff;
+      padding: 1.2rem 1.6rem;
+      border-radius: 12px;
+      border-left: 4px solid #6f9ed8;
+    }
+
+    /* 特点卡片列表 — 本次用紧凑网格 */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin: 1.8rem 0 1.2rem;
+    }
+
+    .feature-item {
+      background: #f6faff;
+      border-radius: 18px;
+      padding: 1.6rem 1.4rem;
+      transition: box-shadow 0.2s;
+    }
+
+    .feature-item:hover {
+      box-shadow: 0 6px 20px rgba(24, 50, 88, 0.06);
+    }
+
+    .feature-item h3 {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #15344d;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-item p {
+      font-size: 0.95rem;
+      color: #2e405a;
+      margin-bottom: 0;
+    }
+
+    /* 强调链接 */
+    a {
+      color: #1f6390;
+      text-decoration: none;
+      font-weight: 500;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    a:hover {
+      color: #0a3e61;
+      border-bottom-color: #0a3e61;
+    }
+
+    .inline-highlight {
+      background: #e8f0fe;
+      padding: 0 0.25rem;
+      border-radius: 4px;
+    }
+
+    /* FAQ 摘要 — 用简约折叠感 */
+    .faq-block {
+      background: #fafcff;
+      border: 1px solid #e2eaf3;
+      border-radius: 20px;
+      padding: 1.6rem 2rem;
+      margin: 2.4rem 0 1rem;
+    }
+
+    .faq-block summary {
+      font-size: 1.1rem;
+      font-weight: 520;
+      color: #0f2a42;
+      cursor: default;
+      margin-bottom: 0.4rem;
+      list-style: none;
+    }
+
+    .faq-block summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-block .faq-item {
+      margin: 0.8rem 0;
+      padding: 0.6rem 0;
+      border-bottom: 1px dashed #dce6f0;
+    }
+
+    .faq-block .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-block .faq-q {
+      font-weight: 500;
+      color: #1a3b57;
+    }
+
+    .faq-block .faq-a {
+      color: #3b4f6b;
+      padding-left: 0.2rem;
+      margin-top: 0.2rem;
+    }
+
+    /* 温和结尾 */
+    .closing {
+      margin-top: 3rem;
+      padding: 1.8rem 0 0.5rem;
+      border-top: 1px solid #dce5ef;
+      font-size: 0.98rem;
+      color: #465e7a;
+      text-align: center;
+    }
+
+    .closing a {
+      font-weight: 500;
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .hero {
+        padding: 3rem 1.2rem 2.5rem;
+      }
+      .content {
+        padding: 2rem 1.2rem;
+      }
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      .faq-block {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <h1>ng28 · 简明用途说明</h1>
+    <div class="sub">
+      一个想快速判断网站是否匹配自己需求的用户，<br>
+      通常先看它<strong>提供什么、解决什么、怎么使用</strong>。<br>
+      下面是一份整理好的摘要。
+    </div>
+  </header>
+
+  <main class="content">
+
+    <p class="lead">
+      如果你打开 <a href="https://website-ng28.com">ng28</a> 这个站点，首先会看到围绕信息展示与功能引导展开的页面结构。
+      它不追求花哨的动画，而更倾向于让访问者用最短的时间了解平台的核心服务。
+    </p>
+
+    <h2 class="section-title">特点一览</h2>
+
+    <div class="feature-grid">
+      <div class="feature-item">
+        <h3>分类清晰</h3>
+        <p>主要模块采用平铺式导航，每个区域用标题与简短说明标记，减少猜测成本。</p>
+      </div>
+      <div class="feature-item">
+        <h3>直述主题</h3>
+        <p>首页不堆砌无关内容，而是围绕少数几个关键功能做介绍，适合快速判断是否要继续浏览。</p>
+      </div>
+      <div class="feature-item">
+        <h3>图文配合</h3>
+        <p>部分说明搭配了示意图表或卡片，方便用户通过视觉辅助理解内容，而不只依赖文本。</p>
+      </div>
+      <div class="feature-item">
+        <h3>行动路径明确</h3>
+        <p>页面内嵌的链接与按钮指向具体目标，没有多余跳转，<span class="inline-highlight">例如</span> 从首页即可直接到达说明页或相关服务入口。</p>
+      </div>
+    </div>
+
+    <h2 class="section-title">适用场景参考</h2>
+    <p>
+      假设你正在寻找一个能清晰列出服务内容或产品信息的网站，而不想花时间在复杂的菜单里层层查找。
+      <a href="https://website-ng28.com">ng28</a> 的页面布局倾向于将要点放在前面，让首次访问的人可以像阅读摘要一样先获得整体印象。
+      无论是了解功能列表、查看使用方式，还是找到联系或反馈的途径，都尽量保持在两到三次点击以内。
+    </p>
+
+    <div class="faq-block">
+      <summary>📌 常见疑问摘要</summary>
+      <div class="faq-item">
+        <div class="faq-q">问：这个网站主要是做什么的？</div>
+        <div class="faq-a">它偏向信息聚合与功能展示，首页直接列出一组主要用途或服务说明，不绕弯子。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">问：适合用来快速了解一个平台吗？</div>
+        <div class="faq-a">是的。首页设计的目的就是让用户用较短时间判断是否与自己需求匹配，之后再决定是否深入探索。</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">问：页面风格怎么样？</div>
+        <div class="faq-a">干净、低饱和度，强调可读性。深色头图与白色正文区形成对比，链接采用蓝色系，不干扰视线。</div>
+      </div>
+    </div>
+
+    <p style="margin-top: 1.8rem;">
+      如果你习惯在访问一个新站点前先看它的定位与内容范围，那么通过首页的几个区块就能大致判断。
+      当然，直接浏览 <a href="https://website-ng28.com">ng28</a> 本身是更准确的了解方式，这里只是把结构拆开来说明。
+    </p>
+
+    <div class="closing">
+      希望上面的整理能帮你更快地识别这个网站是否对你有用。<br>
+      信息以实际页面为准，以上描述基于首页结构与常见浏览路径归纳。
+    </div>
+
+  </main>
+
+</body>
+</html>
